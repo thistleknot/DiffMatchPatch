@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        diffmatchpatch.cpp
+        diffmatchpatch.cpp \
+    diff_match_patch.cpp \
+    diff_match_patch_test.cpp
 
-HEADERS  += diffmatchpatch.h
+HEADERS  += diffmatchpatch.h \
+    diff_match_patch.h \
+    diff_match_patch_test.h
 
 FORMS    += diffmatchpatch.ui

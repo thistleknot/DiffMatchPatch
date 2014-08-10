@@ -24,6 +24,8 @@ private slots:
 
     void on_actionSave_Right_triggered();
 
+    void on_actionCompute_Patch_triggered();
+
 private:
     Ui::DiffMatchPatch *ui;
 };

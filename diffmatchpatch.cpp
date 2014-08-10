@@ -120,7 +120,13 @@ void DiffMatchPatch::on_actionCompute_Patch_triggered()
     QString str2 = QString("Second string in diff");
 
     QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+
+    /*
     QPair<QString, QVector<bool> > out
         = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
-    QString strResult = out.first;
+    */
+
+    //what object type is out?  Is it based on what's prior to >?
+
+    //QString strResult = out.first;
 }

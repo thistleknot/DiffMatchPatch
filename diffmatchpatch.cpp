@@ -120,15 +120,10 @@ void DiffMatchPatch::on_actionSave_Right_triggered()
 void DiffMatchPatch::on_actionCompute_Patch_triggered()
 {
     diff_match_patch dmp;
-    QString str1 = QString("First string in diff");
-    QString str2 = QString("Second string in diff");
 
-    //QTextStream in(ui->plainTextEditRight->toPlainText);
+    QString str1 = ui->plainTextEditLeft->toPlainText();
+    QString str2 = ui->plainTextEditRight->toPlainText();
 
-    //button layout example
-    /*
-    QApplication app(argc, argv);
-    */
     QWidget* win = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(win);
 
@@ -148,19 +143,4 @@ void DiffMatchPatch::on_actionCompute_Patch_triggered()
 
     //show window with patch file loaded
     win->show();
-    /*
-    */
-
-
-
-
-
-    /*
-    QPair<QString, QVector<bool> > out
-        = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
-    */
-
-    //what object type is out?  Is it based on what's prior to >?
-
-    //QString strResult = out.first;
 }

@@ -1,6 +1,10 @@
 #include "diffmatchpatch.h"
 #include "ui_diffmatchpatch.h"
 
+#include <QApplication>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 #include <QFileDialog>
 #include <QFile>
 #include <QMessageBox>
@@ -119,15 +123,37 @@ void DiffMatchPatch::on_actionCompute_Patch_triggered()
     QString str1 = QString("First string in diff");
     QString str2 = QString("Second string in diff");
 
+    //QTextStream in(ui->plainTextEditRight->toPlainText);
+
+    //button layout example
+    /*
+    QApplication app(argc, argv);
+    */
+    QWidget* win = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout(win);
+
+    QPlainTextEdit* plainTextEditPatchOutput = new QPlainTextEdit();
+
+    layout->addWidget(plainTextEditPatchOutput);
+
+    //Load up patch file into a string
     QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+    QTextStream out(&strPatch);
 
-    QTextStream in(&strPatch);
+    plainTextEditPatchOutput->setStyleSheet("font: 9pt \"Courier\";");
+    plainTextEditPatchOutput->setLineWrapMode(QPlainTextEdit::NoWrap);
 
-    ui->plainTextEditRight->setStyleSheet("font: 9pt \"Courier\";");
+    //load patch file into plainTextEdit.
+    plainTextEditPatchOutput->setPlainText(out.readAll());;
 
-    ui->plainTextEditRight->setLineWrapMode(QPlainTextEdit::NoWrap);
+    //show window with patch file loaded
+    win->show();
+    /*
+    */
 
-    ui->plainTextEditRight->setPlainText(in.readAll());
+
+
+
 
     /*
     QPair<QString, QVector<bool> > out

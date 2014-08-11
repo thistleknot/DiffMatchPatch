@@ -121,6 +121,14 @@ void DiffMatchPatch::on_actionCompute_Patch_triggered()
 
     QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
 
+    QTextStream in(&strPatch);
+
+    ui->plainTextEditRight->setStyleSheet("font: 9pt \"Courier\";");
+
+    ui->plainTextEditRight->setLineWrapMode(QPlainTextEdit::NoWrap);
+
+    ui->plainTextEditRight->setPlainText(in.readAll());
+
     /*
     QPair<QString, QVector<bool> > out
         = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);

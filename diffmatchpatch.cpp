@@ -117,10 +117,7 @@ void DiffMatchPatch::on_actionSave_Right_triggered()
     }
 }
 
-void DiffMatchPatch::on_actionPatch_Apply_triggered()
-{
 
-}
 
 void DiffMatchPatch::on_actionPatch_Compute_triggered()
 {
@@ -148,5 +145,4 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
 
     //show window with patch file loaded
     win->show();
-
 }

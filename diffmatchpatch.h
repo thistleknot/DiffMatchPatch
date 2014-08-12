@@ -24,9 +24,9 @@ private slots:
 
     void on_actionSave_Right_triggered();
 
-    void on_actionCompute_Patch_triggered();
+    //void on_actionCompute_Patch_triggered();
 
-    void on_actionPatch_Apply_triggered();
+    //void on_actionPatch_Apply_triggered();
 
     void on_actionPatch_Compute_triggered();
 

@@ -11,6 +11,7 @@
 #include <QTextStream>
 
 #include <diff_match_patch.h>
+#include <patchoutputwindow.h>
 
 DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +19,7 @@ DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+
 
 DiffMatchPatch::~DiffMatchPatch()
 {
@@ -126,9 +128,23 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     QString str1 = ui->plainTextEditLeft->toPlainText();
     QString str2 = ui->plainTextEditRight->toPlainText();
 
+    //PatchOutputWindow output;
+
+    //this output window needs to have it's header included in the .h of this .cpp file.
+    mMyNewWindow = new PatchOutputWindow(); // Be sure to destroy you window somewhere
+    mMyNewWindow->show();
+
+    //PatchOutputWindow output;
+    //output.show();
+
+    //output->show();
+
+    //PatchOutputWindow* output2 = new PatchOutPutWindow();
+
+    //manually create a new window
+
     QWidget* win = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(win);
-
     QPlainTextEdit* plainTextEditPatchOutput = new QPlainTextEdit();
 
     layout->addWidget(plainTextEditPatchOutput);
@@ -145,4 +161,5 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
 
     //show window with patch file loaded
     win->show();
+
 }

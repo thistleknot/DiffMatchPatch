@@ -10,8 +10,6 @@
 #include <QMessageBox>
 #include <QTextStream>
 
-#include <diff_match_patch.h>
-#include <patchoutputwindow.h>
 
 DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +18,7 @@ DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     ui->setupUi(this);
 }
 
+PatchOutputWindow *childForm;
 
 DiffMatchPatch::~DiffMatchPatch()
 {
@@ -42,7 +41,7 @@ void DiffMatchPatch::on_actionOpen_Left_triggered()
 
         //set font to ASCII
         //http://qt-project.org/forums/viewthread/7943
-        ui->plainTextEditLeft->setStyleSheet("font: 9pt \"Courier\";");
+        //ui->plainTextEditLeft->setStyleSheet("font: 9pt \"Courier\";");
 
         //no wrap
         //http://qt-project.org/doc/qt-4.8/qtextedit.html#LineWrapMode-enum
@@ -131,8 +130,30 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     //PatchOutputWindow output;
 
     //this output window needs to have it's header included in the .h of this .cpp file.
-    mMyNewWindow = new PatchOutputWindow(); // Be sure to destroy you window somewhere
-    mMyNewWindow->show();
+
+    //appeared but accessing form members didn't work
+    /*
+    childForm = new PatchOutputWindow();
+    childForm->show();
+    */
+
+    //childForm->plai
+
+    //mMyNewWindow = new PatchOutputWindow(); // Be sure to destroy your window somewhere
+    //mMyNewWindow->show();
+
+    //mM
+
+    QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+    QTextStream out(&strPatch);
+
+    //PatchOutputWindow w2;
+
+    //mMyNewWindow->setPl
+
+    //ui->plainTextEditLeft->setPlainText(in.readAll());
+
+    //ui->textEditLeft->setText(in.readAll());
 
     //PatchOutputWindow output;
     //output.show();
@@ -142,7 +163,7 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     //PatchOutputWindow* output2 = new PatchOutPutWindow();
 
     //manually create a new window
-
+    /*
     QWidget* win = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(win);
     QPlainTextEdit* plainTextEditPatchOutput = new QPlainTextEdit();
@@ -161,5 +182,6 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
 
     //show window with patch file loaded
     win->show();
+    */
 
 }

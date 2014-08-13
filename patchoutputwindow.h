@@ -15,6 +15,11 @@ public:
     explicit PatchOutputWindow(QWidget *parent = 0);
     ~PatchOutputWindow();
 
+    protected:
+
+    //void closeEvent(QCloseEvent *event);
+
+
 private:
     Ui::PatchOutputWindow *ui;
 };

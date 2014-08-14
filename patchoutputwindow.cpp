@@ -32,7 +32,7 @@ PatchOutputWindow::~PatchOutputWindow()
 void PatchOutputWindow::on_actionSave_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString(),
-            tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+                                                    tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
 
     if (!fileName.isEmpty()) {
         QFile file(fileName);

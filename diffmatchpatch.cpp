@@ -33,7 +33,7 @@ QString returnQstring(QString *parent = 0)
 void DiffMatchPatch::on_actionOpen_Left_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
-            tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+                                                    tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
 
     if (!fileName.isEmpty()) {
         QFile file(fileName);
@@ -67,7 +67,7 @@ void DiffMatchPatch::on_actionOpen_Left_triggered()
 void DiffMatchPatch::on_actionOpen_Right_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
-            tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+                                                    tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
 
     if (!fileName.isEmpty()) {
         QFile file(fileName);
@@ -90,7 +90,7 @@ void DiffMatchPatch::on_actionOpen_Right_triggered()
 void DiffMatchPatch::on_actionSave_Left_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString(),
-            tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+                                                    tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
 
     if (!fileName.isEmpty()) {
         QFile file(fileName);
@@ -108,7 +108,7 @@ void DiffMatchPatch::on_actionSave_Left_triggered()
 void DiffMatchPatch::on_actionSave_Right_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString(),
-            tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+                                                    tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
 
     if (!fileName.isEmpty()) {
         QFile file(fileName);

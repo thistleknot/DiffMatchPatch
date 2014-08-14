@@ -41,8 +41,11 @@
     </property>
     <addaction name="actionOpen_Left"/>
     <addaction name="actionOpen_Right"/>
+    <addaction name="separator"/>
     <addaction name="actionSave_Left"/>
     <addaction name="actionSave_Right"/>
+    <addaction name="separator"/>
+    <addaction name="actionPatch_Compute"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -73,6 +76,11 @@
   <action name="actionSave_Right">
    <property name="text">
     <string>Save Right</string>
+   </property>
+  </action>
+  <action name="actionPatch_Compute">
+   <property name="text">
+    <string>Patch, Compute</string>
    </property>
   </action>
  </widget>

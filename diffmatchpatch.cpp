@@ -1,10 +1,15 @@
 #include "diffmatchpatch.h"
 #include "ui_diffmatchpatch.h"
 
+#include <QApplication>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 #include <QFileDialog>
 #include <QFile>
 #include <QMessageBox>
 #include <QTextStream>
+
 
 DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     QMainWindow(parent),
@@ -13,9 +18,16 @@ DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     ui->setupUi(this);
 }
 
+PatchOutputWindow *childForm;
+
 DiffMatchPatch::~DiffMatchPatch()
 {
     delete ui;
+}
+
+QString returnQstring(QString *parent = 0)
+{
+    return *parent;
 }
 
 void DiffMatchPatch::on_actionOpen_Left_triggered()
@@ -34,7 +46,7 @@ void DiffMatchPatch::on_actionOpen_Left_triggered()
 
         //set font to ASCII
         //http://qt-project.org/forums/viewthread/7943
-        ui->plainTextEditLeft->setStyleSheet("font: 9pt \"Courier\";");
+        //ui->plainTextEditLeft->setStyleSheet("font: 9pt \"Courier\";");
 
         //no wrap
         //http://qt-project.org/doc/qt-4.8/qtextedit.html#LineWrapMode-enum
@@ -109,4 +121,51 @@ void DiffMatchPatch::on_actionSave_Right_triggered()
             file.close();
         }
     }
+}
+
+
+
+void DiffMatchPatch::on_actionPatch_Compute_triggered()
+{
+    diff_match_patch dmp;
+
+    QString str1 = ui->plainTextEditLeft->toPlainText();
+    QString str2 = ui->plainTextEditRight->toPlainText();
+
+    childForm = new PatchOutputWindow(this);
+
+    //parent window can be in front of child window
+    //childForm = new PatchOutputWindow();
+
+    QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+    QTextStream out(&strPatch);
+
+    childForm->setOutputWindowText(strPatch);
+
+    childForm->show();
+
+    //emit patchOutputWindowData(&strPatch);
+
+    //manually create a new window
+    /*
+    QWidget* win = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout(win);
+    QPlainTextEdit* plainTextEditPatchOutput = new QPlainTextEdit();
+
+    layout->addWidget(plainTextEditPatchOutput);
+
+    //Load up patch file into a string
+    QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+    QTextStream out(&strPatch);
+
+    plainTextEditPatchOutput->setStyleSheet("font: 9pt \"Courier\";");
+    plainTextEditPatchOutput->setLineWrapMode(QPlainTextEdit::NoWrap);
+
+    //load patch file into plainTextEdit.
+    plainTextEditPatchOutput->setPlainText(out.readAll());;
+
+    //show window with patch file loaded
+    win->show();
+    */
+
 }

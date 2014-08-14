@@ -2,6 +2,11 @@
 #define DIFFMATCHPATCH_H
 
 #include <QMainWindow>
+#include <QObject>
+
+#include <diff_match_patch.h>
+
+#include <patchoutputwindow.h>
 
 namespace Ui {
 class DiffMatchPatch;
@@ -13,6 +18,7 @@ class DiffMatchPatch : public QMainWindow
 
 public:
     explicit DiffMatchPatch(QWidget *parent = 0);
+
     ~DiffMatchPatch();
 
 private slots:
@@ -24,8 +30,12 @@ private slots:
 
     void on_actionSave_Right_triggered();
 
+    void on_actionPatch_Compute_triggered();
+
 private:
     Ui::DiffMatchPatch *ui;
+
+    //Ui::PatchOutputWindow *uiOutput;
 };
 
 #endif // DIFFMATCHPATCH_H

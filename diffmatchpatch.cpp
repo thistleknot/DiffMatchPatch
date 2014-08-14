@@ -169,3 +169,59 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     */
 
 }
+
+void DiffMatchPatch::on_actionPatch_Apply_triggered()
+{
+    //VARS
+    diff_match_patch dmp;
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
+                                                    tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
+            return;
+        }
+
+        //load left plainTextEdit as str1
+        QString str1 = ui->plainTextEditLeft->toPlainText();
+
+        //load file into patch object
+                QTextStream in(&file);
+                QString strPatch = file.readAll();
+
+        //QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+
+        //Creating Temp patch var manually
+        QList<Patch> Temp = dmp.patch_fromText(strPatch);
+
+        //original suggested use of code that wouldn't work.
+        //QPair<QString, QVector<bool> > out = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
+
+        QPair<QString, QVector<bool> > out = dmp.patch_apply(Temp, str1);
+
+        //?
+        //QString outPut;
+        //QTextStream out(&outPut);
+
+        QString strResult = out.first;
+
+        childForm = new PatchOutputWindow(this);
+
+        //breaks if I enable this
+        //childForm->setOutputWindowText(strResult);
+
+        childForm->show();
+
+        //causes my exec to delete itself...?
+        //ui->plainTextEditRight->setStyleSheet("font: 9pt \"Courier\";");
+
+        //ui->plainTextEditRight->setLineWrapMode(QPlainTextEdit::NoWrap);
+
+        //ui->plainTextEditRight->setPlainText(strResult);
+
+        file.close();
+    }
+}

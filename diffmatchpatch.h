@@ -32,6 +32,8 @@ private slots:
 
     void on_actionPatch_Compute_triggered();
 
+    void on_actionPatch_Apply_triggered();
+
 private:
     Ui::DiffMatchPatch *ui;
 

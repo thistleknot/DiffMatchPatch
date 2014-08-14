@@ -15,6 +15,11 @@ PatchOutputWindow::PatchOutputWindow(QWidget *parent) :
 }
 
 void PatchOutputWindow::setOutputWindowText(QString outputString) {
+
+    ui->plainTextEditPatchOutput->setStyleSheet("font: 9pt \"Courier\";");
+
+    ui->plainTextEditPatchOutput->setLineWrapMode(QPlainTextEdit::NoWrap);
+
     ui->plainTextEditPatchOutput->setPlainText(outputString);
 }
 

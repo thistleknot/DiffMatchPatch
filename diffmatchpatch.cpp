@@ -195,23 +195,36 @@ void DiffMatchPatch::on_actionPatch_Apply_triggered()
         //QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
 
         //Creating Temp patch var manually
-        QList<Patch> Temp = dmp.patch_fromText(strPatch);
+        QList<Patch> heldPatch = dmp.patch_fromText(strPatch);
 
         //original suggested use of code that wouldn't work.
         //QPair<QString, QVector<bool> > out = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
 
-        QPair<QString, QVector<bool> > out = dmp.patch_apply(Temp, str1);
+        //I think it breaks assigning this part?
+        //for each?
+        //output patch to test if it was imported correctly
+        //outputted patch file is empty.
+
+        QPair<QString, QVector<bool> > out = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
+        //QPair<QString, QVector<bool> > out = dmp.patch_apply(heldPatch, str1);
+
+        childForm = new PatchOutputWindow(this);
+        childForm->show();
+
+
+        //why not create a new patch object in memory based
 
         //?
-        //QString outPut;
+        QString outPut;
         //QTextStream out(&outPut);
 
         QString strResult = out.first;
 
+        childForm->setOutputWindowText(outPut);
         childForm = new PatchOutputWindow(this);
 
         //breaks if I enable this
-        //childForm->setOutputWindowText(strResult);
+        childForm->setOutputWindowText(outPut);
 
         childForm->show();
 

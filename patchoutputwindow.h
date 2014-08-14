@@ -2,6 +2,7 @@
 #define PATCHOUTPUTWINDOW_H
 
 #include <QMainWindow>
+#include <QObject>
 
 namespace Ui {
 class PatchOutputWindow;
@@ -13,15 +14,30 @@ class PatchOutputWindow : public QMainWindow
 
 public:
     explicit PatchOutputWindow(QWidget *parent = 0);
+
+    void setOutputWindowText(QString);
+
     ~PatchOutputWindow();
 
-    protected:
+public slots:
+
+    //void receiveData(QString object);
+
+    //protected:
 
     //void closeEvent(QCloseEvent *event);
 
+signals:
+
+    //void sendData(QString);
+
+
+private slots:
+    void on_actionSave_triggered();
 
 private:
     Ui::PatchOutputWindow *ui;
+    QString m_value;
 };
 
 #endif // PATCHOUTPUTWINDOW_H

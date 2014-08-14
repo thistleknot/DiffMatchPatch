@@ -25,6 +25,11 @@ DiffMatchPatch::~DiffMatchPatch()
     delete ui;
 }
 
+QString returnQstring(QString *parent = 0)
+{
+    return *parent;
+}
+
 void DiffMatchPatch::on_actionOpen_Left_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
@@ -127,40 +132,19 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     QString str1 = ui->plainTextEditLeft->toPlainText();
     QString str2 = ui->plainTextEditRight->toPlainText();
 
-    //PatchOutputWindow output;
+    childForm = new PatchOutputWindow(this);
 
-    //this output window needs to have it's header included in the .h of this .cpp file.
-
-    //appeared but accessing form members didn't work
-    /*
-    childForm = new PatchOutputWindow();
-    childForm->show();
-    */
-
-    //childForm->plai
-
-    //mMyNewWindow = new PatchOutputWindow(); // Be sure to destroy your window somewhere
-    //mMyNewWindow->show();
-
-    //mM
+    //parent window can be in front of child window
+    //childForm = new PatchOutputWindow();
 
     QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
     QTextStream out(&strPatch);
 
-    //PatchOutputWindow w2;
+    childForm->setOutputWindowText(strPatch);
 
-    //mMyNewWindow->setPl
+    childForm->show();
 
-    //ui->plainTextEditLeft->setPlainText(in.readAll());
-
-    //ui->textEditLeft->setText(in.readAll());
-
-    //PatchOutputWindow output;
-    //output.show();
-
-    //output->show();
-
-    //PatchOutputWindow* output2 = new PatchOutPutWindow();
+    //emit patchOutputWindowData(&strPatch);
 
     //manually create a new window
     /*

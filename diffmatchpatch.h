@@ -2,6 +2,7 @@
 #define DIFFMATCHPATCH_H
 
 #include <QMainWindow>
+#include <QObject>
 
 #include <diff_match_patch.h>
 
@@ -34,11 +35,7 @@ private slots:
 private:
     Ui::DiffMatchPatch *ui;
 
-    Ui::PatchOutputWindow *uiOutput;
-    //PatchOutputWindow *patchOutputWindow;
-    //PatchOutputWindow *mMyNewWindow;
-
-    //Ui::PatchOutputWindow *uiOutput2;
+    //Ui::PatchOutputWindow *uiOutput;
 };
 
 #endif // DIFFMATCHPATCH_H

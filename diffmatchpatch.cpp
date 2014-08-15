@@ -306,19 +306,22 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
         line = in.readLine();
 
         //if first line, store as special comment as filename
+        //assumes file is setup correct,
+        //should also check if there is a [ or ] in the 1st line and set a flag for the user to correct.
         if (linePosition == 1)
         {
             QVector<tagToken> temp(0);
 
-            //errors
-            //temp.at(0).setString(line);
+            //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
+            temp[0].setString(line);
+            temp[0].setBooleans(0, 0, 1);
 
             //broken
             //temp.at(0).setString("test");
 
             //tags.at(0).setString(line);
 
-            //tags.push_back();
+            tags.push_back(temp[0]);
 
             tagTokenCounter++;
         }

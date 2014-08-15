@@ -282,13 +282,18 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     //count lines
     int charCount = 1;
 
-    int lineCount = 1;
+    int lineCount = 0;
+
+    int numOfChars = 0;
 
     int bracketCount = 0;
 
     //thanks stack
     //http://stackoverflow.com/questions/15115571/reading-a-txt-file-using-qtextstream-c
     QString line = in.readLine();
+
+    numOfChars = line.length();
+
     while (!in.atEnd())
     {
         line = in.readLine();
@@ -296,7 +301,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
         //Read Character's if length !=0
         int charPosition = 0;
-        int totalLength = 0;
+        numOfChars = firstLine + line.length();
         //while (line.length())
         //not going through the length of string properly...
 
@@ -321,7 +326,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     in.resetStatus();
 
     //logWindow->readInt(lineCount);
-    logWindow->readInt(charCount);
+    logWindow->readInt(numOfChars);
 
     //separate concept, now to read objects
     /*

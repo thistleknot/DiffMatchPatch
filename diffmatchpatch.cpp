@@ -267,7 +267,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     logWindow->show();
 
-    QVector<tagToken> tags;
+    QVector<tagToken> tags(0);
 
     QString holderString = ui->plainTextEditLeft->toPlainText();
 
@@ -304,6 +304,26 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     do
     {
         line = in.readLine();
+
+        //if first line, store as special comment as filename
+        if (linePosition == 1)
+        {
+            QVector<tagToken> temp(0);
+
+            //errors
+            //temp.at(0).setString(line);
+
+            //broken
+            //temp.at(0).setString("test");
+
+            //tags.at(0).setString(line);
+
+            //tags.push_back();
+
+            tagTokenCounter++;
+        }
+
+
 
         //test if line has a [
 

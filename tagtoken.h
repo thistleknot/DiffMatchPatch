@@ -19,8 +19,6 @@ public:
 
     void setColumn(int col) {colNumber = col;};
 
-
-
 private:
     QString stringOfTagToken;
 
@@ -37,7 +35,7 @@ private:
     //is tagToken "Object:" ?
     bool objectIdentifier = 0;
 
-    struct tokenInfo
+    struct tokenBooleanInfo
     {
         bool openBrace = 0;
         bool closingBrace = 0;
@@ -53,7 +51,7 @@ private:
         bool newLines = 0;
     };
 
-    tokenInfo myTokens;
+    tokenBooleanInfo myTokenBooleans;
 
     //struct's are like classes, but all member's are public :)
 

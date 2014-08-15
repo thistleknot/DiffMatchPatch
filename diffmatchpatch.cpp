@@ -279,6 +279,63 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     //Then trying to count 1st row's # of char's.
     //Then first two rows
 
+
+
+    //used merely for one loop
+    int lineCounter = 0;
+
+    int tagTokenCounter = 0;
+
+    //thanks stack
+    //http://stackoverflow.com/questions/15115571/reading-a-txt-file-using-qtextstream-c
+    QString line = "";
+
+    //update lineCounter
+    do
+    {
+        line = in.readLine();
+        lineCounter++;
+    } while (!in.atEnd());
+
+    in.resetStatus();
+
+    int linePosition = 1;
+    //start to parse file
+    do
+    {
+        line = in.readLine();
+
+        //test if line has a [
+
+        // need to test if tag is broken
+        // do so by counting until end of line.length() if a nearby ] is found before [ or ' ';
+        // if so, then test is token, else comment
+
+        //test if char is a '['
+
+        //how about starting recording first line at 1st char.
+        //If a [ is found, then do the test to see if an unbroken ] exists, then store as token.
+
+        if (line.contains('['))
+        {
+            //contains a token
+            tagTokenCounter++;
+
+        }
+        else //store as string
+        {
+            //tags.
+
+        }
+
+        //somewhere I need to update a tagToken using [tagTokenCouter];
+
+        linePosition++;
+
+    } while (linePosition <= lineCounter);
+
+
+    /*  self derived example on how to parse
     //count lines
     int charCount = 1;
 
@@ -287,10 +344,6 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     int numOfChars = 0;
 
     int bracketCount = 0;
-
-    //thanks stack
-    //http://stackoverflow.com/questions/15115571/reading-a-txt-file-using-qtextstream-c
-    QString line = "";
 
     numOfChars = line.length();
 
@@ -320,18 +373,21 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
             charPosition++;
         }
 
-
         lineCount++;
     } while (!in.atEnd());
 
     in.resetStatus();
+    */
+
+
 
     //logWindow->readInt(lineCount);
 
     //logWindow->readInt(numOfChars);
 
-    logWindow->readInt(bracketCount);
+    //logWindow->readInt(bracketCount);
 
+    logWindow->readInt(tagTokenCounter);
     //separate concept, now to read objects
     /*
     int numOfLines = ui->plainTextEditLeft->blockCount();

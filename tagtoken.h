@@ -11,8 +11,18 @@ public:
     //this works, but the recieving has to have the same struct, might as well make it a class.
     //tokenInfo getBooleans();
 
+    void setString(QString string);
+
+    void setBooleans(bool closingBrc, bool openBrc, bool isComment);
+
+    void setRow(int row) {rowNumber = row;}
+
+    void setColumn(int col) {colNumber = col;};
+
+
+
 private:
-    QString nameOftagToken;
+    QString stringOfTagToken;
 
     //line # of file token was on
     int rowNumber = 0;
@@ -31,14 +41,19 @@ private:
     {
         bool openBrace = 0;
         bool closingBrace = 0;
+
+        //never going to use this one, because... if their's whitespace, it's stored as a comment
         bool whiteSpace = 0;
 
         //it's a comment if there is no nearby [ or ]
         bool comment = 0;
 
         //are there newLines in this token?
+        //I'm never going to use this because i'm going to store the newline as a new token
         bool newLines = 0;
     };
+
+    tokenInfo myTokens;
 
     //struct's are like classes, but all member's are public :)
 

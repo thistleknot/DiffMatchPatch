@@ -19,6 +19,8 @@ class DiffMatchPatch : public QMainWindow
 public:
     explicit DiffMatchPatch(QWidget *parent = 0);
 
+    void log_window();
+
     ~DiffMatchPatch();
 
 private slots:
@@ -33,6 +35,8 @@ private slots:
     void on_actionPatch_Compute_triggered();
 
     void on_actionPatch_Apply_triggered();
+
+    void on_actionObjects_Read_triggered();
 
 private:
     Ui::DiffMatchPatch *ui;

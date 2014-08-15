@@ -47,6 +47,8 @@
     <addaction name="separator"/>
     <addaction name="actionPatch_Compute"/>
     <addaction name="actionPatch_Apply"/>
+    <addaction name="separator"/>
+    <addaction name="actionObjects_Read"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -87,6 +89,11 @@
   <action name="actionPatch_Apply">
    <property name="text">
     <string>Patch, Apply</string>
+   </property>
+  </action>
+  <action name="actionObjects_Read">
+   <property name="text">
+    <string>Objects, Read</string>
    </property>
   </action>
  </widget>

@@ -10,6 +10,9 @@
 #include <QMessageBox>
 #include <QTextStream>
 
+#include <tagtoken.h>
+#include <logwindow.h>
+
 
 DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     QMainWindow(parent),
@@ -18,7 +21,9 @@ DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     ui->setupUi(this);
 }
 
-PatchOutputWindow *childForm;
+//important!  Global variables for Forms!***
+PatchOutputWindow *patchOutput;
+LogWindow *logWindow;
 
 DiffMatchPatch::~DiffMatchPatch()
 {
@@ -123,8 +128,6 @@ void DiffMatchPatch::on_actionSave_Right_triggered()
     }
 }
 
-
-
 void DiffMatchPatch::on_actionPatch_Compute_triggered()
 {
     diff_match_patch dmp;
@@ -132,7 +135,7 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     QString str1 = ui->plainTextEditLeft->toPlainText();
     QString str2 = ui->plainTextEditRight->toPlainText();
 
-    childForm = new PatchOutputWindow(this);
+    patchOutput = new PatchOutputWindow(this);
 
     //parent window can be in front of child window
     //childForm = new PatchOutputWindow();
@@ -140,9 +143,9 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
     QTextStream out(&strPatch);
 
-    childForm->setOutputWindowText(strPatch);
+    patchOutput->setOutputWindowText(strPatch);
 
-    childForm->show();
+    patchOutput->show();
 
     //emit patchOutputWindowData(&strPatch);
 
@@ -167,11 +170,16 @@ void DiffMatchPatch::on_actionPatch_Compute_triggered()
     //show window with patch file loaded
     win->show();
     */
+}
+
+void DiffMatchPatch::log_window()
+{
 
 }
 
 void DiffMatchPatch::on_actionPatch_Apply_triggered()
 {
+
     //VARS
     diff_match_patch dmp;
 
@@ -205,28 +213,28 @@ void DiffMatchPatch::on_actionPatch_Apply_triggered()
         //output patch to test if it was imported correctly
         //outputted patch file is empty.
 
-        QPair<QString, QVector<bool> > out = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
+        //QPair<QString, QVector<bool> > out = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
         //QPair<QString, QVector<bool> > out = dmp.patch_apply(heldPatch, str1);
 
-        childForm = new PatchOutputWindow(this);
-        childForm->show();
+        //childForm = new PatchOutputWindow(this);
+        //childForm->show();
 
 
         //why not create a new patch object in memory based
 
         //?
-        QString outPut;
+        //QString outPut;
         //QTextStream out(&outPut);
 
-        QString strResult = out.first;
+        //QString strResult = out.first;
 
-        childForm->setOutputWindowText(outPut);
-        childForm = new PatchOutputWindow(this);
+        //childForm->setOutputWindowText(outPut);
+        patchOutput = new PatchOutputWindow(this);
 
         //breaks if I enable this
-        childForm->setOutputWindowText(outPut);
+        //childForm->setOutputWindowText(outPut);
 
-        childForm->show();
+        patchOutput->show();
 
         //causes my exec to delete itself...?
         //ui->plainTextEditRight->setStyleSheet("font: 9pt \"Courier\";");
@@ -236,5 +244,67 @@ void DiffMatchPatch::on_actionPatch_Apply_triggered()
         //ui->plainTextEditRight->setPlainText(strResult);
 
         file.close();
+
+    /*
+    diff_match_patch dmp;
+    QString str1 = QString("First string in diff");
+    QString str2 = QString("Second string in diff");
+
+    QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
+    QPair<QString, QVector<bool> > out
+            = dmp.patch_apply(dmp.patch_fromText(strPatch), str1);
+    QString strResult = out.first;
+    */
     }
+
+}
+
+void DiffMatchPatch::on_actionObjects_Read_triggered()
+{
+    //open log window instance
+
+    logWindow = new LogWindow(this);
+
+    logWindow->show();
+
+    QVector<tagToken> tags;
+
+    QString holderString = ui->plainTextEditLeft->toPlainText();
+
+    QTextStream in(&holderString);
+
+    //count lines
+    int lineCount = 1;
+    QString line = in.readLine();
+    while (!in.atEnd())
+    {
+        line = in.readLine();
+        lineCount++;
+    }
+
+    logWindow->readInt(lineCount);
+
+    int numOfLines = ui->plainTextEditLeft->blockCount();
+
+    //read until end of line, if end of line is not token, did I just read a [?  If I did, mark as broken token.  If run into another [, then finish reading token
+
+    //min numOfLines is 1
+    int counterOfLines = 1;
+
+    while (counterOfLines<=numOfLines)
+    {//
+        //get a Qstring of the line
+
+        //QString line = ui->plainTextEditLeft->AnchorAt(counterOfLines);
+        QString line = "test";
+
+        //test if line is blank
+        if(line=="")
+        {
+
+        }
+
+        counterOfLines++;
+    }
+
 }

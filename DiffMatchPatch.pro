@@ -15,11 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         diffmatchpatch.cpp \
     diff_match_patch.cpp \
-    patchoutputwindow.cpp
+    patchoutputwindow.cpp \
+    tagtoken.cpp \
+    logwindow.cpp
 
 HEADERS  += diffmatchpatch.h \
     diff_match_patch.h \
-    patchoutputwindow.h
+    patchoutputwindow.h \
+    tagtoken.h \
+    logwindow.h
 
 FORMS    += diffmatchpatch.ui \
-    patchoutputwindow.ui
+    patchoutputwindow.ui \
+    logwindow.ui

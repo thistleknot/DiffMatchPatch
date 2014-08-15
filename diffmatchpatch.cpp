@@ -271,6 +271,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     QString holderString = ui->plainTextEditLeft->toPlainText();
 
+    //figured since QTextStream was made for reading in text... and it worked!
     QTextStream in(&holderString);
 
     //count lines
@@ -278,6 +279,8 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     int bracketCount = 0;
 
+    //thanks stack
+    //http://stackoverflow.com/questions/15115571/reading-a-txt-file-using-qtextstream-c
     QString line = in.readLine();
     while (!in.atEnd())
     {
@@ -286,21 +289,16 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
         //Read Character's if length !=0
         int charPosition = 0;
         //while (line.length())
+        //not going through the length of string properly...
+
+        //length I don't think is working, but my debugger isn't working.
         while (charPosition <= line.length())
         {
-            //const QChar character = QString::operator [](charPosition) line;
-
-            //const QChar character = QString::
-
-            //QChar character = line[](charPosition);
-
             QChar character = line[charPosition];
 
-            //string conversion?
-            //http://qt-project.org/faq/answer/how_can_i_convert_a_qstring_to_char_and_vice_versa
-            //QString characterString = character.toLatin1();
+            char character2 = character.toLatin1();
 
-            //if (character.toLatin1() == "[")
+            if (character2 == '[')
             {
                 bracketCount++;
             };

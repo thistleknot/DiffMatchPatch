@@ -275,15 +275,48 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     //count lines
     int lineCount = 1;
+
+    int bracketCount = 0;
+
     QString line = in.readLine();
     while (!in.atEnd())
     {
         line = in.readLine();
+
+        //Read Character's if length !=0
+        int charPosition = 0;
+        //while (line.length())
+        while (charPosition <= line.length())
+        {
+            //const QChar character = QString::operator [](charPosition) line;
+
+            //const QChar character = QString::
+
+            //QChar character = line[](charPosition);
+
+            QChar character = line[charPosition];
+
+            //string conversion?
+            //http://qt-project.org/faq/answer/how_can_i_convert_a_qstring_to_char_and_vice_versa
+            //QString characterString = character.toLatin1();
+
+            //if (character.toLatin1() == "[")
+            {
+                bracketCount++;
+            };
+            charPosition++;
+        }
+
+
         lineCount++;
     }
+    in.resetStatus();
 
-    logWindow->readInt(lineCount);
+    //logWindow->readInt(lineCount);
+    logWindow->readInt(bracketCount);
 
+    //separate concept, now to read objects
+    /*
     int numOfLines = ui->plainTextEditLeft->blockCount();
 
     //read until end of line, if end of line is not token, did I just read a [?  If I did, mark as broken token.  If run into another [, then finish reading token
@@ -306,5 +339,6 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
         counterOfLines++;
     }
+    */
 
 }

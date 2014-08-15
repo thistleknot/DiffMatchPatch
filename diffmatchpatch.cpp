@@ -274,7 +274,14 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     //figured since QTextStream was made for reading in text... and it worked!
     QTextStream in(&holderString);
 
+    //recommend counting lines first and separately.
+
+    //Then trying to count 1st row's # of char's.
+    //Then first two rows
+
     //count lines
+    int charCount = 1;
+
     int lineCount = 1;
 
     int bracketCount = 0;
@@ -285,15 +292,18 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     while (!in.atEnd())
     {
         line = in.readLine();
+        charCount = line.length();
 
         //Read Character's if length !=0
         int charPosition = 0;
+        int totalLength = 0;
         //while (line.length())
         //not going through the length of string properly...
 
         //length I don't think is working, but my debugger isn't working.
         while (charPosition <= line.length())
         {
+            charCount = charCount + line.length();
             QChar character = line[charPosition];
 
             char character2 = character.toLatin1();
@@ -311,7 +321,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     in.resetStatus();
 
     //logWindow->readInt(lineCount);
-    logWindow->readInt(bracketCount);
+    logWindow->readInt(charCount);
 
     //separate concept, now to read objects
     /*

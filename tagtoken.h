@@ -8,6 +8,9 @@ class tagToken
 public:
     tagToken();
 
+    //this works, but the recieving has to have the same struct, might as well make it a class.
+    //tokenInfo getBooleans();
+
 private:
     QString nameOftagToken;
 
@@ -36,6 +39,9 @@ private:
         //are there newLines in this token?
         bool newLines = 0;
     };
+
+    //struct's are like classes, but all member's are public :)
+
 };
 
 #endif // TAGTOKEN_H

@@ -312,71 +312,82 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     bool insideBracket = 0;
     bool leftBracket = 0;
 
+    //int characterCount;
+
     do
     {
+        tempCharactersForTokenName.clear();
+
         line = in.readLine();
 
         int lineLength = line.length();
 
         int column = 0;
 
+        int characterNumber = 0;
+
         do
         {
 
             QChar character = line[column];
 
-            //check if '['
-            if (character.toLatin1() == '[')
+            //set boolean flags
             {
-                //never gets here
-                //QWidget *popup = new QWidget();
-                     //popup->show();
-
-                //if left Bracket is already tracked
-                if (leftBracket == 1)
-                {//reset tempCharactersForTokenName if we encounter another '['
-                    tempCharactersForTokenName.clear();
-                }
-                leftBracket = 1;
-                insideBracket = 1;
-            }
-
-            if (character == ']')
-            {
-                insideBracket = 0;
-                leftBracket = 0;
-
-                int sizeOfPhrase = tempCharactersForTokenName.size();
-
-                int tempCount = 0;
-
-                do
+                //check if '['
+                if (character.toLatin1() == '[')
                 {
-                    stringOfToken.append(character);
+                    //never gets here
+                    //QWidget *popup = new QWidget();
+                    //popup->show();
 
-                }while (tempCount <= sizeOfPhrase);
+                    //if left Bracket is already tracked
+                    if (leftBracket == 1)
+                    {//reset tempCharactersForTokenName if we encounter another '['
+                        tempCharactersForTokenName.clear();
+                    }
+                    leftBracket = 1;
+                    characterNumber = 0;
+                    insideBracket = 1;
+                }
 
-                //commit word to string
-
-                QVector<tagToken> temp(0);
-
-                //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
-                temp[0].setString(stringOfToken);
-                temp[0].setBooleans(1, 1, 0);
-
-                //broken
-                //temp.at(0).setString("test");
-
-                //tags.at(0).setString(line);
-
-                tags.push_back(temp[0]);
-
-                tagTokenCounter++;
-
-
-                //reset string
-                stringOfToken = "";
+                if (character == ']')
+                {
+                    insideBracket = 0;
+                    leftBracket = 0;
+                }
             }
+
+            //test if insideBracket
+
+            //used to keep track of stringOfToken size.
+
+            if (insideBracket)
+            {
+                //stringOfToken.append(character);
+                stringOfToken += character;
+                //characterCount++;
+            }
+            //int sizeOfPhrase = tempCharactersForTokenName.size();
+
+            //var wasn't set and setting it below stringOfToken didn't fix broken loop
+            /*
+            do
+            {
+
+            }while (tempCount <= sizeOfPhrase);
+            */
+
+            //commit word to string
+
+            //broken
+            //temp.at(0).setString("test");
+
+            //tags.at(0).setString(line);
+
+            //reset string
+
+            stringOfToken = "";
+            /*
 
             if (insideBracket)
             {
@@ -388,12 +399,24 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
 
             }
+            */
             column++;
 
         } while (column <= lineLength);
 
+        //reset column for next pass
         column = 0;
 
+
+        QVector<tagToken> temp(0);
+
+        //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
+        temp[0].setString(stringOfToken);
+        temp[0].setBooleans(1, 1, 0);
+
+        tags.push_back(temp[0]);
+
+        tagTokenCounter++;
 
 
         //I need to parse everything as a token or a comment.

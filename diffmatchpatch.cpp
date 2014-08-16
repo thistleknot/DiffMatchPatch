@@ -320,11 +320,16 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
         do
         {
-            //check if '['
+
             QChar character = line[column];
 
+            //check if '['
             if (character == '[')
             {
+                //never gets here
+                QWidget *popup = new QWidget();
+                     popup->show();
+
                 //if left Bracket is already tracked
                 if (leftBracket == 1)
                 {//reset tempCharactersForTokenName if we encounter another '['

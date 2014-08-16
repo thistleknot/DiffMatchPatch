@@ -197,8 +197,8 @@ void DiffMatchPatch::on_actionPatch_Apply_triggered()
         QString str1 = ui->plainTextEditLeft->toPlainText();
 
         //load file into patch object
-                QTextStream in(&file);
-                QString strPatch = file.readAll();
+        QTextStream in(&file);
+        QString strPatch = file.readAll();
 
         //QString strPatch = dmp.patch_toText(dmp.patch_make(str1, str2));
 
@@ -245,7 +245,7 @@ void DiffMatchPatch::on_actionPatch_Apply_triggered()
 
         file.close();
 
-    /*
+        /*
     diff_match_patch dmp;
     QString str1 = QString("First string in diff");
     QString str2 = QString("Second string in diff");
@@ -301,13 +301,107 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     int linePosition = 1;
     //start to parse file
+
+    QString stringOfToken = "";
+
+    //I thought about putting this inside a loop and then transformgin to a string
+    QVector<QChar> tempCharactersForTokenName;
+
+    bool insideBracket = 0;
+    bool leftBracket = 0;
+
     do
     {
         line = in.readLine();
 
+        int lineLength = line.length();
+
+        int column = 0;
+
+        do
+        {
+            //check if '['
+            QChar character = line[column];
+
+            if (character == '[')
+            {
+                //if left Bracket is already tracked
+                if (leftBracket == 1)
+                {//reset tempCharactersForTokenName if we encounter another '['
+                    tempCharactersForTokenName.clear();
+                }
+                leftBracket = 1;
+                insideBracket = 1;
+            }
+
+            if (character == ']')
+            {
+                insideBracket = 0;
+                leftBracket = 0;
+
+                int sizeOfPhrase = tempCharactersForTokenName.size();
+
+                int tempCount = 0;
+
+                do
+                {
+                    stringOfToken.append(character);
+
+                }while (tempCount <= sizeOfPhrase);
+
+                //commit word to string
+
+                QVector<tagToken> temp(0);
+
+                //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
+                temp[0].setString(stringOfToken);
+                temp[0].setBooleans(1, 1, 0);
+
+                //broken
+                //temp.at(0).setString("test");
+
+                //tags.at(0).setString(line);
+
+                tags.push_back(temp[0]);
+
+                tagTokenCounter++;
+
+
+                //reset string
+                stringOfToken = "";
+            }
+
+            if (insideBracket)
+            {
+                if ((character != ']') && (column == lineLength))
+                {
+                    //if reach end of line, and haven't found closing bracket.
+                    tempCharactersForTokenName.append(character);
+                }
+
+
+            }
+            column++;
+
+        } while (column <= lineLength);
+
+        column = 0;
+
+
+
+        //I need to parse everything as a token or a comment.
+        //1st and foremost.
+
+        //then do followup conditions on the array to backfill other information based on readings just the tokens.
+
+        //Listing the starting x,y.
+        //Once I have the vector of comments/tags, I can do other things like backupdate a 3rd variable that specifies dependencies?
+
         //if first line, store as special comment as filename
         //assumes file is setup correct,
         //should also check if there is a [ or ] in the 1st line and set a flag for the user to correct.
+
+        /*
         if (linePosition == 1)
         {
             QVector<tagToken> temp(0);
@@ -325,6 +419,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
             tagTokenCounter++;
         }
+        */
 
 
 
@@ -339,6 +434,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
         //how about starting recording first line at 1st char.
         //If a [ is found, then do the test to see if an unbroken ] exists, then store as token.
 
+        /*
         if (line.contains('['))
         {
             //contains a token
@@ -352,6 +448,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
         }
 
         //somewhere I need to update a tagToken using [tagTokenCouter];
+        */
 
         linePosition++;
 

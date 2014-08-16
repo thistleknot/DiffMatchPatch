@@ -13,6 +13,27 @@
 #include <tagtoken.h>
 #include <logwindow.h>
 
+/*
+ * to do
+ *
+ * Try put text from QTextEdit to QStringList and than you may take any row which you want. After processing of QStringList, you may put all together and place back to QTextEdit
+ *
+ *
+    QString plainTextEditContents = ui->textEdit->toPlainText();
+    QStringList lines = plainTextEditContents.split("\n");
+    //some processing
+    //...
+
+    //join all in one string
+    plainTextEditContents.clear();
+    for (int i = 0; i < lines.size(); ++i) {
+       plainTextEditContents += lines.at(i);
+       if (i!=lines.size()-1)
+          plainTextEditContents += "\n";
+    }
+    ui->textEdit->setText(plainTextEditContents)
+    */
+
 
 DiffMatchPatch::DiffMatchPatch(QWidget *parent) :
     QMainWindow(parent),

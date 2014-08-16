@@ -298,6 +298,8 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     } while (!in.atEnd());
 
     in.resetStatus();
+    //in.clear();
+    in.seek(0);
 
     int linePosition = 1;
     //start to parse file
@@ -327,8 +329,8 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
             if (character.toLatin1() == '[')
             {
                 //never gets here
-                QWidget *popup = new QWidget();
-                     popup->show();
+                //QWidget *popup = new QWidget();
+                     //popup->show();
 
                 //if left Bracket is already tracked
                 if (leftBracket == 1)

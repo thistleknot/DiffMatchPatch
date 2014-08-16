@@ -324,7 +324,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
             QChar character = line[column];
 
             //check if '['
-            if (character == '[')
+            if (character.toLatin1() == '[')
             {
                 //never gets here
                 QWidget *popup = new QWidget();

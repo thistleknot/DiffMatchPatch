@@ -370,12 +370,6 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
                     characterNumber = 0;
                     insideBracket = 1;
                 }
-
-                if (character == ']')
-                {
-                    insideBracket = 0;
-                    leftBracket = 0;
-                }
             }
 
             //test if insideBracket
@@ -405,9 +399,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
             //tags.at(0).setString(line);
 
-            //reset string
 
-            stringOfToken = "";
             /*
 
             if (insideBracket)
@@ -421,9 +413,19 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
             }
             */
+            if (character == ']')
+            {
+                insideBracket = 0;
+                leftBracket = 0;
+            }
+
             column++;
 
         } while (column <= lineLength);
+
+        //reset string
+
+        stringOfToken = "";
 
         //reset column for next pass
         column = 0;
@@ -503,7 +505,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
         linePosition++;
 
-    } while (linePosition <= lineCounter);
+    } while (linePosition < lineCounter);
 
 
     /*  self derived example on how to parse

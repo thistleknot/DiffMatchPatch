@@ -303,7 +303,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
 
     //used merely for one loop
-    int lineCounter = 0;
+    int lineCounter = 1;
 
     int tagTokenCounter = 0;
 

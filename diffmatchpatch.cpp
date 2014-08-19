@@ -380,6 +380,7 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
             {
                 //stringOfToken.append(character);
                 stringOfToken += character;
+                characterNumber++;
                 //characterCount++;
             }
             //int sizeOfPhrase = tempCharactersForTokenName.size();
@@ -415,8 +416,22 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
             */
             if (character == ']')
             {
+                //don't need to, haven't reset insideBracket status!
+                //stringOfToken += character;
+
                 insideBracket = 0;
                 leftBracket = 0;
+                characterNumber = 0;
+
+                QVector<tagToken> temp(0);
+
+                //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
+                temp[0].setString(stringOfToken);
+                temp[0].setBooleans(1, 1, 0);
+
+                tags.push_back(temp[0]);
+
+                tagTokenCounter++;
             }
 
             column++;
@@ -429,17 +444,6 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
         //reset column for next pass
         column = 0;
-
-
-        QVector<tagToken> temp(0);
-
-        //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
-        temp[0].setString(stringOfToken);
-        temp[0].setBooleans(1, 1, 0);
-
-        tags.push_back(temp[0]);
-
-        tagTokenCounter++;
 
 
         //I need to parse everything as a token or a comment.

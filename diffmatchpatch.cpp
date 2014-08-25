@@ -425,13 +425,13 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
                 //no need to declare a (0)
                 //make your object, add it to your vector
-                QVector<tagToken> temp(0);
+                tagToken temp;
 
                 //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
-                temp[0].setString(stringOfToken);
-                temp[0].setBooleans(1, 1, 0);
+                temp.setString(stringOfToken);
+                temp.setBooleans(1, 1, 0);
 
-                tags.append(temp[0]);
+                tags.append(temp);
 
                 //tags.push_back(temp[0]);
 

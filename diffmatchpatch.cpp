@@ -416,27 +416,33 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
             */
             if (character == ']')
             {
+
+
+                if (insideBracket)
+                {
+
+                    //no need to declare a (0)
+                    //make your object, add it to your vector
+                    tagToken temp;
+
+                    //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
+                    temp.setString(stringOfToken);
+                    temp.setBooleans(1, 1, 0);
+
+                    tags.append(temp);
+
+                    //tags.push_back(temp[0]);
+
+                    tagTokenCounter++;
+
+                }
                 //don't need to, haven't reset insideBracket status!
                 //stringOfToken += character;
 
                 insideBracket = 0;
                 leftBracket = 0;
                 characterNumber = 0;
-
-                //no need to declare a (0)
-                //make your object, add it to your vector
-                tagToken temp;
-
-                //errors fixed: http://stackoverflow.com/questions/25332771/c-qvector-vector-issues-const-discards-qualifiers
-                temp.setString(stringOfToken);
-                temp.setBooleans(1, 1, 0);
-
-                tags.append(temp);
-
-                //tags.push_back(temp[0]);
-
-                tagTokenCounter++;
-            }
+           }
 
             column++;
 

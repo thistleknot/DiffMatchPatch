@@ -300,8 +300,6 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
     //Then trying to count 1st row's # of char's.
     //Then first two rows
 
-
-
     //used merely for one loop
     int lineCounter = 1;
 
@@ -327,8 +325,8 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     QString stringOfToken = "";
 
-    //I thought about putting this inside a loop and then transformgin to a string
-    QVector<QChar> tempCharactersForTokenName;
+    //I thought about putting this inside a loop and then transforming to a string
+    //QVector<QChar> tempCharactersForTokenName;
 
     bool insideBracket = 0;
     bool leftBracket = 0;
@@ -347,8 +345,13 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
         int characterNumber = 0;
 
+        //Problem: how do I properly flag comments?
+        //One idea is to remove the past token from the string... maybe insert a \n character at the front of the freshly discovered [token]
         do
         {
+
+            //runs thru each character in a line, and parses tokens within each line
+            //column represents line #
 
             QChar character = line[column];
 

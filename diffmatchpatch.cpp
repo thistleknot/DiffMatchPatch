@@ -335,7 +335,8 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
 
     do
     {
-        tempCharactersForTokenName.clear();
+        stringOfToken.clear();
+        //tempCharactersForTokenName.clear();
 
         line = in.readLine();
 
@@ -367,7 +368,8 @@ void DiffMatchPatch::on_actionObjects_Read_triggered()
                     //if left Bracket is already tracked
                     if (leftBracket == 1)
                     {//reset tempCharactersForTokenName if we encounter another '['
-                        tempCharactersForTokenName.clear();
+                        //tempCharactersForTokenName.clear();
+                        stringOfToken.clear();
                     }
                     leftBracket = 1;
                     characterNumber = 0;
